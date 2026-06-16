@@ -1,0 +1,155 @@
+<%- include('partials/header') %>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🏆 Maharashtra's Premier Coaching Academy</div>
+    <h1 class="hero-title">Shape Your Future<br><span class="hero-accent">With Baliraja</span></h1>
+    <p class="hero-subtitle">Expert coaching for 11th & 12th Science students. Proven results, dedicated faculty, and a path to top colleges.</p>
+    <div class="hero-actions">
+      <a href="/courses" class="btn btn-primary">Explore Courses</a>
+      <a href="/contact" class="btn btn-outline">Enquire Now</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll Down</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- STATS SECTION -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card" data-count="<%= studentCount %>">
+        <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+        <div class="stat-num" data-target="<%= studentCount %>">0</div>
+        <div class="stat-label">Current Students</div>
+      </div>
+      <div class="stat-card" data-count="<%= alumniCount %>">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-num" data-target="<%= alumniCount %>">0</div>
+        <div class="stat-label">Proud Alumni</div>
+      </div>
+      <div class="stat-card" data-count="<%= facultyCount %>">
+        <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div class="stat-num" data-target="<%= facultyCount %>">0</div>
+        <div class="stat-label">Expert Faculty</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Success Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO SECTION -->
+<section class="section intro-section">
+  <div class="container intro-grid">
+    <div class="intro-content">
+      <span class="section-badge">About Us</span>
+      <h2 class="section-title">Nurturing Excellence<br>Since Establishment</h2>
+      <p>Baliraja Career Academy is a dedicated coaching institute for 11th and 12th Science students from across Maharashtra. We believe every student has unique potential waiting to be unlocked through the right guidance.</p>
+      <p>Our experienced faculty, proven teaching methods, and student-first approach have helped hundreds of students secure admissions to top engineering, medical, and science colleges.</p>
+      <a href="/about" class="btn btn-primary">Learn More</a>
+    </div>
+    <div class="intro-features">
+      <div class="feature-card">
+        <i class="fas fa-microscope"></i>
+        <h4>Science Focus</h4>
+        <p>Specialized coaching for Physics, Chemistry, Mathematics & Biology</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-medal"></i>
+        <h4>Proven Results</h4>
+        <p>Consistent top performers in HSC board exams every year</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-book-open"></i>
+        <h4>Study Material</h4>
+        <p>Comprehensive notes and practice papers designed by experts</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-headset"></i>
+        <h4>Personal Attention</h4>
+        <p>Small batch sizes ensure every student gets individual focus</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOP RESULTS -->
+<% if (topResults.length > 0) { %>
+<section class="section results-preview bg-light">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">Achievements</span>
+      <h2 class="section-title">Our Top Results</h2>
+      <p>Celebrating the success of our outstanding students</p>
+    </div>
+    <div class="results-grid">
+      <% topResults.forEach((r, i) => { %>
+      <div class="result-card">
+        <div class="result-rank">#<%= i + 1 %></div>
+        <div class="result-info">
+          <h4><%= r.studentName %></h4>
+          <p><%= r.exam %> | <%= r.year %></p>
+          <% if (r.rank) { %><span class="result-tag"><%= r.rank %></span><% } %>
+        </div>
+        <div class="result-percent"><%= r.percentage %>%</div>
+      </div>
+      <% }); %>
+    </div>
+    <div class="section-cta">
+      <a href="/results" class="btn btn-primary">View All Results</a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- NOTICES SECTION -->
+<% if (notices.length > 0) { %>
+<section class="section notices-preview">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">Announcements</span>
+      <h2 class="section-title">Latest Notices</h2>
+    </div>
+    <div class="notices-list">
+      <% notices.forEach(n => { %>
+      <div class="notice-item">
+        <div class="notice-date">
+          <span class="notice-day"><%= new Date(n.date).getDate() %></span>
+          <span class="notice-month"><%= new Date(n.date).toLocaleString('default', {month: 'short'}) %></span>
+        </div>
+        <div class="notice-content">
+          <h4><%= n.title %></h4>
+          <p><%= n.description.substring(0, 120) %><%= n.description.length > 120 ? '...' : '' %></p>
+        </div>
+        <% if (n.important) { %><span class="badge-important">Important</span><% } %>
+      </div>
+      <% }); %>
+    </div>
+    <div class="section-cta">
+      <a href="/notices" class="btn btn-outline">All Notices</a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- CALL TO ACTION -->
+<section class="cta-section">
+  <div class="container cta-content">
+    <h2>Ready to Begin Your Journey?</h2>
+    <p>Join Baliraja Career Academy and take the first step toward a successful career in Science & Technology.</p>
+    <div class="cta-actions">
+      <a href="/contact" class="btn btn-white">Contact Us Today</a>
+      <a href="/courses" class="btn btn-outline-white">View Courses</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

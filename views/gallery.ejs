@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+<div class="page-hero"><div class="container"><h1>Gallery</h1><p>Memories and moments from our academy</p></div></div>
+<section class="section">
+  <div class="container">
+    <div class="gallery-filters">
+      <% categories.forEach(cat => { %>
+        <button class="filter-btn <%= cat === 'All' ? 'active' : '' %>" data-filter="<%= cat %>"><%= cat %></button>
+      <% }) %>
+    </div>
+    <% if (gallery.length === 0) { %>
+      <div class="empty-state"><i class="fas fa-images"></i><p>Gallery coming soon.</p></div>
+    <% } else { %>
+    <div class="gallery-grid" id="galleryGrid">
+      <% gallery.forEach(item => { %>
+      <div class="gallery-item" data-category="<%= item.category %>">
+        <div class="gallery-img-wrap">
+          <img src="/uploads/<%= item.image %>" alt="<%= item.title %>" loading="lazy" />
+          <div class="gallery-overlay">
+            <h4><%= item.title %></h4>
+            <span><%= item.category %></span>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>

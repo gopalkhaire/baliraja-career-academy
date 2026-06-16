@@ -1,0 +1,54 @@
+<%- include('layout') %>
+<% if (success && success.length) { %><div class="alert alert-success"><i class="fas fa-check-circle"></i> <%= success %></div><% } %>
+<% if (error && error.length) { %><div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> <%= error %></div><% } %>
+<div class="admin-card">
+  <div class="admin-card-header">
+    <h3><i class="fas fa-upload"></i> Upload Image</h3>
+  </div>
+  <form method="POST" action="/admin/gallery/add" enctype="multipart/form-data" class="admin-form upload-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Image Title *</label>
+        <input type="text" name="title" placeholder="Image title" required />
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category">
+          <option value="Event">Event</option>
+          <option value="Academic">Academic</option>
+          <option value="Seminar">Seminar</option>
+          <option value="Function">Function</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Select Image *</label>
+      <input type="file" name="image" accept="image/*" required />
+    </div>
+    <button type="submit" class="btn-admin-primary"><i class="fas fa-upload"></i> Upload Image</button>
+  </form>
+</div>
+<div class="admin-card">
+  <div class="admin-card-header">
+    <h3><i class="fas fa-images"></i> Gallery Images (<%= gallery.length %>)</h3>
+  </div>
+  <% if (gallery.length === 0) { %><p class="empty-msg">No images uploaded yet.</p>
+  <% } else { %>
+  <div class="admin-gallery-grid">
+    <% gallery.forEach(item => { %>
+    <div class="admin-gallery-item">
+      <img src="/uploads/<%= item.image %>" alt="<%= item.title %>" />
+      <div class="gallery-item-overlay">
+        <p><%= item.title %></p>
+        <span><%= item.category %></span>
+        <form method="POST" action="/admin/gallery/delete/<%= item._id %>" onsubmit="return confirm('Delete?')">
+          <button type="submit" class="btn-delete-sm"><i class="fas fa-trash"></i></button>
+        </form>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<%- include('layout-end') %>

@@ -1,0 +1,183 @@
+<%- include('partials/header') %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-content">
+    <span class="hero-badge">Excellence in Education Since 2022</span>
+    <h1 class="hero-title">Shape Your Future at<br><span>Baliraja Career Academy</span></h1>
+    <p class="hero-text">Premier coaching institute for 11th & 12th Science students. Expert faculty, proven results, and holistic development.</p>
+    <div class="hero-buttons">
+      <a href="/courses" class="btn btn-primary">Explore Courses</a>
+      <a href="/contact" class="btn btn-outline">Contact Us</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<!-- Stats -->
+<section class="stats-section">
+  <div class="container stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+      <div class="stat-num" data-target="<%= studentCount %>"><%= studentCount %></div>
+      <div class="stat-label">Current Students</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-users"></i></div>
+      <div class="stat-num" data-target="<%= alumniCount %>"><%= alumniCount %></div>
+      <div class="stat-label">Alumni</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+      <div class="stat-num" data-target="<%= facultyCount %>"><%= facultyCount %></div>
+      <div class="stat-label">Expert Faculty</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Years of Excellence</div>
+    </div>
+  </div>
+</section>
+
+<!-- About Snippet -->
+<section class="section about-snippet">
+  <div class="container about-grid">
+    <div class="about-image-wrap">
+      <div class="about-image-box">
+        <div class="about-image-inner">
+          <i class="fas fa-school" style="font-size:5rem;color:#f59e0b;opacity:0.3"></i>
+        </div>
+        <div class="about-badge-card">
+          <span class="about-badge-num">4+</span>
+          <span>Years of Teaching Excellence</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-text">
+      <span class="section-tag">About Us</span>
+      <h2 class="section-title">Committed to Academic Excellence</h2>
+      <p>Baliraja Career Academy has been a beacon of quality education in Maharashtra since 2022. Our mission is to provide exceptional coaching that transforms Normal students into successful professionals.</p>
+      <p>With highly qualified faculty, modern teaching methodologies, and a student-first approach, we consistently produce top performers in HSC board examinations and Competative examinations such as JEE , NEET and MHT-CET.</p>
+      <ul class="feature-list">
+        <li><i class="fas fa-check-circle"></i> Expert faculty with 20+ years experience</li>
+        <li><i class="fas fa-check-circle"></i> Small batch sizes for personalized attention</li>
+        <li><i class="fas fa-check-circle"></i> Regular tests and assessments</li>
+        <li><i class="fas fa-check-circle"></i> Doubt clearing sessions</li>
+      </ul>
+      <a href="/about" class="btn btn-primary">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- Courses Preview -->
+<section class="section courses-preview">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Programs</span>
+      <h2 class="section-title">Courses We Offer</h2>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-icon"><i class="fas fa-flask"></i></div>
+        <h3>JEE + HSC Integrated Preparation Course</h3>
+        <p>Our JEE + HSC Integrated Preparation Course is designed to help students excel in both the Joint Entrance Examination (JEE) and the Higher
+           Secondary Certificate (HSC) Board Examination simultaneously. The course provides a well-structured curriculum that covers the complete syllabus
+            of Physics, Chemistry, and Mathematics in accordance with both JEE and HSC requirements..</p>
+        <ul>
+          <li>Physics & Chemistry</li>
+          <li>English & Mathematics</li>
+          <li>Board + JEE prep</li>
+          
+
+        </ul>
+        <a href="/courses" class="btn btn-sm">Know More</a>
+      </div>
+      <div class="course-card featured">
+        <span class="badge-popular">Most Popular</span>
+        <div class="course-icon"><i class="fas fa-atom"></i></div>
+        <h3>NEET + HSC Integrated Preparation Course</h3>
+        <p>Our NEET + HSC Integrated Preparation Course is designed to help students excel in both the Joint Entrance Examination (JEE) and the Higher
+           Secondary Certificate (HSC) Board Examination simultaneously. The course provides a well-structured curriculum that covers the complete syllabus
+            of Physics, Chemistry, and Biology in accordance with both NEET and HSC requirements.</p>
+        <ul>
+          <li>Physics & Chemistry</li>
+          <li>Biology & English</li>
+          <li>Board + NEET prep</li>
+        </ul>
+        <a href="/courses" class="btn btn-primary btn-sm">Know More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Notices -->
+<section class="section notices-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Updates</span>
+      <h2 class="section-title">Latest Notices</h2>
+      <a href="/notices" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <% if (notices.length === 0) { %>
+      <div class="empty-state"><i class="fas fa-bell-slash"></i><p>No notices yet.</p></div>
+    <% } else { %>
+    <div class="notices-list">
+      <% notices.forEach(n => { %>
+      <div class="notice-card">
+        <div class="notice-date">
+          <span class="day"><%= new Date(n.date).getDate() %></span>
+          <span class="month"><%= new Date(n.date).toLocaleString('default',{month:'short'}) %></span>
+        </div>
+        <div class="notice-body">
+          <h4><%= n.title %></h4>
+          <p><%= n.description.substring(0, 150) %><%= n.description.length > 150 ? '...' : '' %></p>
+        </div>
+        <i class="fas fa-chevron-right notice-arrow"></i>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Top Results -->
+<section class="section results-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Achievements</span>
+      <h2 class="section-title">Top Results</h2>
+      <a href="/results" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <% if (results.length === 0) { %>
+      <div class="empty-state"><i class="fas fa-trophy"></i><p>No results published yet.</p></div>
+    <% } else { %>
+    <div class="results-grid">
+      <% results.forEach((r, i) => { %>
+      <div class="result-card <%= i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '' %>">
+        <div class="result-rank"><%= i + 1 %></div>
+        <div class="result-name"><%= r.studentName %></div>
+        <div class="result-exam"><%= r.exam %></div>
+        <div class="result-percent"><%= r.percentage %>%</div>
+        <div class="result-year"><%= r.year %></div>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container cta-inner">
+    <h2>Ready to Start Your Journey?</h2>
+    <p>Join hundreds of successful students who shaped their future at Baliraja Career Academy.</p>
+    <div class="cta-buttons">
+      <a href="/contact" class="btn btn-primary">Enroll Now</a>
+      <a href="/courses" class="btn btn-outline-white">View Courses</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

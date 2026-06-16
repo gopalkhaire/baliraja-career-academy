@@ -1,0 +1,148 @@
+<%- include('../partials/header') %>
+
+<div class="auth-page-wrap">
+  <div class="auth-split-left">
+    <div class="auth-brand-panel">
+      <div class="auth-brand-icon">B</div>
+      <h1>Join Our Community</h1>
+      <p>Register as a student or alumni of Baliraja Career Academy. Your account will be reviewed and approved by the admin.</p>
+      <div class="auth-features">
+        <div class="af-item"><i class="fas fa-shield-alt"></i> Admin verifies all accounts</div>
+        <div class="af-item"><i class="fas fa-bell"></i> Email notification on approval</div>
+        <div class="af-item"><i class="fas fa-lock"></i> Secure & private</div>
+      </div>
+    </div>
+  </div>
+  <div class="auth-split-right">
+    <div class="auth-box auth-box-wide">
+      <div class="auth-box-header">
+        <h2>Create Account</h2>
+        <p>Fill in your details — admin will approve your request</p>
+      </div>
+
+      <% if (messages.error && messages.error.length > 0) { %>
+        <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> <%= messages.error[0] %></div>
+      <% } %>
+
+      <form action="/register" method="POST" class="auth-form" id="regForm">
+        <!-- Role -->
+        <div class="role-select">
+          <label class="role-option">
+            <input type="radio" name="role" value="student" checked onchange="toggleRegFields()" />
+            <span class="role-btn"><i class="fas fa-book-open"></i> Student</span>
+          </label>
+          <label class="role-option">
+            <input type="radio" name="role" value="alumni" onchange="toggleRegFields()" />
+            <span class="role-btn"><i class="fas fa-user-tie"></i> Alumni</span>
+          </label>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Full Name *</label>
+            <input type="text" name="name" class="form-control" placeholder="Your full name" required />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-phone"></i> Phone</label>
+            <input type="text" name="phone" class="form-control" placeholder="Mobile number" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-envelope"></i> Email *</label>
+            <input type="email" name="email" class="form-control" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-lock"></i> Password *</label>
+            <div class="password-wrap">
+              <input type="password" name="password" id="regPass" class="form-control" placeholder="Min 6 characters" required />
+              <button type="button" class="eye-btn" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student fields -->
+        <div id="studentFields">
+          <div class="form-section-label">Student Details</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-graduation-cap"></i> Class</label>
+              <select name="class" class="form-control">
+                <option value="11th">11th</option>
+                <option value="12th">12th</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-flask"></i> Stream</label>
+              <select name="stream" class="form-control">
+                <option value="Science">Science</option>
+                <option value="Commerce">Commerce</option>
+                <option value="Arts">Arts</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-map-marker-alt"></i> Village</label>
+              <input type="text" name="village" class="form-control" placeholder="Your village" />
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-map"></i> District</label>
+              <input type="text" name="district" class="form-control" placeholder="Your district" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Alumni fields -->
+        <div id="alumniFields" style="display:none">
+          <div class="form-section-label">Alumni Details</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-calendar"></i> Batch Year *</label>
+              <input type="text" name="batch" class="form-control" placeholder="e.g. 2022-23" />
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-university"></i> College</label>
+              <input type="text" name="college" class="form-control" placeholder="College name" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label><i class="fas fa-code-branch"></i> Branch/Course</label>
+              <input type="text" name="branch" class="form-control" placeholder="e.g. B.Tech CS" />
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-briefcase"></i> Current Status</label>
+              <input type="text" name="currentStatus" class="form-control" placeholder="Job / Study" />
+            </div>
+          </div>
+        </div>
+
+        <div class="pending-notice">
+          <i class="fas fa-info-circle"></i>
+          Your account will be reviewed by an admin before activation. You'll receive an email notification.
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full"><i class="fas fa-user-plus"></i> Register & Submit for Approval</button>
+      </form>
+
+      <div class="auth-divider"><span>Already have an account?</span></div>
+      <a href="/login" class="btn btn-outline btn-full"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleRegFields() {
+  const r = document.querySelector('input[name="role"]:checked').value;
+  document.getElementById('studentFields').style.display = r === 'student' ? '' : 'none';
+  document.getElementById('alumniFields').style.display  = r === 'alumni'  ? '' : 'none';
+}
+function togglePass(id, btn) {
+  const inp = document.getElementById(id);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  btn.querySelector('i').className = inp.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+}
+</script>
+
+<%- include('../partials/footer') %>

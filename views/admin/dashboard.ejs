@@ -1,0 +1,81 @@
+<%- include('layout') %>
+
+<!-- Stats Cards -->
+<div class="admin-stats-grid">
+  <div class="admin-stat-card blue">
+    <div class="asc-icon"><i class="fas fa-user-graduate"></i></div>
+    <div class="asc-info"><span class="asc-num"><%= studentCount %></span><span class="asc-label">Students</span></div>
+    <a href="/admin/students" class="asc-link">Manage <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="admin-stat-card green">
+    <div class="asc-icon"><i class="fas fa-user-tie"></i></div>
+    <div class="asc-info"><span class="asc-num"><%= alumniCount %></span><span class="asc-label">Alumni</span></div>
+    <a href="/admin/alumni" class="asc-link">Manage <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="admin-stat-card amber">
+    <div class="asc-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+    <div class="asc-info"><span class="asc-num"><%= facultyCount %></span><span class="asc-label">Faculty</span></div>
+    <a href="/admin/faculty" class="asc-link">Manage <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="admin-stat-card purple">
+    <div class="asc-icon"><i class="fas fa-trophy"></i></div>
+    <div class="asc-info"><span class="asc-num"><%= resultCount %></span><span class="asc-label">Results</span></div>
+    <a href="/admin/results" class="asc-link">Manage <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="admin-stat-card teal">
+    <div class="asc-icon"><i class="fas fa-images"></i></div>
+    <div class="asc-info"><span class="asc-num"><%= galleryCount %></span><span class="asc-label">Gallery</span></div>
+    <a href="/admin/gallery" class="asc-link">Manage <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="admin-stat-card red">
+    <div class="asc-icon"><i class="fas fa-envelope"></i></div>
+    <div class="asc-info"><span class="asc-num"><%= contactCount %></span><span class="asc-label">Messages <% if(unreadContacts>0){ %><span class="badge-new"><%= unreadContacts %></span><% } %></span></div>
+    <a href="/admin/contacts" class="asc-link">View <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="admin-stat-card orange">
+    <div class="asc-icon"><i class="fas fa-user-clock"></i></div>
+    <div class="asc-info"><span class="asc-num"><%= pendingUsers %></span><span class="asc-label">Pending Approvals <% if(pendingUsers>0){ %><span class="badge-new"><%= pendingUsers %></span><% } %></span></div>
+    <a href="/admin/users" class="asc-link">Review <i class="fas fa-arrow-right"></i></a>
+  </div>
+</div>
+
+<!-- Recent Messages -->
+<div class="admin-card">
+  <div class="admin-card-header">
+    <h3><i class="fas fa-envelope"></i> Recent Messages</h3>
+    <a href="/admin/contacts" class="btn-sm-admin">View All</a>
+  </div>
+  <% if (recentContacts.length === 0) { %>
+    <p class="empty-msg">No messages yet.</p>
+  <% } else { %>
+  <table class="admin-table">
+    <thead><tr><th>Name</th><th>Email</th><th>Message</th><th>Date</th></tr></thead>
+    <tbody>
+      <% recentContacts.forEach(c => { %>
+      <tr class="<%= !c.isRead ? 'unread-row' : '' %>">
+        <td><strong><%= c.name %></strong></td>
+        <td><%= c.email %></td>
+        <td><%= c.message.substring(0, 60) %>...</td>
+        <td><%= new Date(c.createdAt).toLocaleDateString() %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+  <h3>Quick Actions</h3>
+  <div class="qa-grid">
+    <a href="/admin/students/add" class="qa-btn"><i class="fas fa-user-plus"></i> Add Student</a>
+    <a href="/admin/alumni/add" class="qa-btn"><i class="fas fa-user-tie"></i> Add Alumni</a>
+    <a href="/admin/faculty/add" class="qa-btn"><i class="fas fa-chalkboard-teacher"></i> Add Faculty</a>
+    <a href="/admin/results/add" class="qa-btn"><i class="fas fa-plus-circle"></i> Add Result</a>
+    <a href="/admin/users" class="qa-btn"><i class="fas fa-user-check"></i> User Approvals</a>
+    <a href="/admin/notices/add" class="qa-btn"><i class="fas fa-bell"></i> Add Notice</a>
+    <a href="/admin/gallery" class="qa-btn"><i class="fas fa-upload"></i> Upload Photo</a>
+  </div>
+</div>
+
+<%- include('layout-end') %>

@@ -1,0 +1,31 @@
+<%- include('layout') %>
+<% if (success && success.length) { %><div class="alert alert-success"><i class="fas fa-check-circle"></i> <%= success %></div><% } %>
+<% if (error && error.length) { %><div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> <%= error %></div><% } %>
+<div class="admin-card">
+  <div class="admin-card-header">
+    <h3><i class="fas fa-bell"></i> Notices (<%= notices.length %>)</h3>
+    <a href="/admin/notices/add" class="btn-admin-primary"><i class="fas fa-plus"></i> Add Notice</a>
+  </div>
+  <% if (notices.length === 0) { %><p class="empty-msg">No notices added yet.</p>
+  <% } else { %>
+  <table class="admin-table">
+    <thead><tr><th>Title</th><th>Description</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% notices.forEach(n => { %>
+      <tr>
+        <td><strong><%= n.title %></strong></td>
+        <td><%= n.description.substring(0, 80) %>...</td>
+        <td><%= new Date(n.date).toLocaleDateString() %></td>
+        <td class="actions">
+          <a href="/admin/notices/edit/<%= n._id %>" class="btn-edit"><i class="fas fa-edit"></i></a>
+          <form method="POST" action="/admin/notices/delete/<%= n._id %>" style="display:inline" onsubmit="return confirm('Delete?')">
+            <button type="submit" class="btn-delete"><i class="fas fa-trash"></i></button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+<%- include('layout-end') %>

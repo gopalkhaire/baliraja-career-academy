@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> | Admin | Baliraja</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body class="admin-body">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-icon">B</div>
+      <div>
+        <span class="sidebar-title">Baliraja</span>
+        <span class="sidebar-sub">Admin Panel</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/admin/dashboard" class="nav-item <%= title==='Dashboard'?'active':'' %>"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="/admin/students" class="nav-item <%= title.includes('Student')?'active':'' %>"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="/admin/alumni" class="nav-item <%= title.includes('Alumni')?'active':'' %>"><i class="fas fa-user-tie"></i> Alumni</a>
+      <a href="/admin/faculty" class="nav-item <%= title.includes('Faculty')?'active':'' %>"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
+      <a href="/admin/results" class="nav-item <%= title.includes('Result')?'active':'' %>"><i class="fas fa-trophy"></i> Results</a>
+      <a href="/admin/gallery" class="nav-item <%= title.includes('Gallery')?'active':'' %>"><i class="fas fa-images"></i> Gallery</a>
+      <a href="/admin/notices" class="nav-item <%= title.includes('Notice')?'active':'' %>"><i class="fas fa-bell"></i> Notices</a>
+      <a href="/admin/contacts" class="nav-item <%= title.includes('Contact')?'active':'' %>"><i class="fas fa-envelope"></i> Messages</a>
+      <div class="sidebar-divider"></div>
+      <a href="/" class="nav-item" target="_blank"><i class="fas fa-globe"></i> View Website</a>
+      <a href="/admin/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="admin-main">
+    <!-- Top Bar -->
+    <header class="admin-header">
+      <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+      <h1 class="page-title"><%= title %></h1>
+      <div class="admin-user">
+        <i class="fas fa-user-circle"></i>
+        <span><%= adminEmail %></span>
+      </div>
+    </header>
+    <!-- Content -->
+    <main class="admin-content">

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> | Baliraja Career Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span><i class="fas fa-phone"></i> +91 XXXXXXXXXX</span>
+      <span><i class="fas fa-envelope"></i> info@balirajacareeracademy.com</span>
+      <span><i class="fas fa-map-marker-alt"></i> Jalna, Maharashtra</span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <div class="brand-icon">B</div>
+        <div>
+          <span class="brand-name">Baliraja</span>
+          <span class="brand-sub">Career Academy</span>
+        </div>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/about" class="nav-link">About Us</a></li>
+        <li><a href="/courses" class="nav-link">Courses</a></li>
+        <li><a href="/faculty" class="nav-link">Faculty</a></li>
+        <li class="dropdown">
+          <a href="/students" class="nav-link">Students <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="/students#current">Current Students</a></li>
+            <li><a href="/students#alumni">Alumni</a></li>
+          </ul>
+        </li>
+        <li><a href="/results" class="nav-link">Results</a></li>
+        <li><a href="/gallery" class="nav-link">Gallery</a></li>
+        <li><a href="/notices" class="nav-link">Notices</a></li>
+        <li><a href="/contact" class="nav-link">Contact</a></li>
+        <% if (isAdmin) { %>
+          <li><a href="/admin/dashboard" class="nav-btn admin-btn"><i class="fas fa-cogs"></i> Dashboard</a></li>
+        <% } else if (isUser) { %>
+          <li class="dropdown">
+            <a href="/profile" class="nav-btn user-btn"><i class="fas fa-user-circle"></i> <%= userName %></a>
+            <ul class="dropdown-menu">
+              <li><a href="/profile"><i class="fas fa-id-card"></i> My Profile</a></li>
+              <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <li><a href="/login" class="nav-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </nav>

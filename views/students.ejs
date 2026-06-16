@@ -1,0 +1,77 @@
+<%- include('partials/header') %>
+<div class="page-hero"><div class="container"><h1>Our Students</h1><p>Current students and proud alumni of Baliraja Career Academy</p></div></div>
+
+<!-- Current Students -->
+<section class="section" id="current">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Currently Enrolled</span>
+      <h2 class="section-title">Current Students</h2>
+    </div>
+    <% if (currentStudents.length === 0) { %>
+      <div class="empty-state"><i class="fas fa-users"></i><p>Student information coming soon.</p></div>
+    <% } else { %>
+    <div class="students-grid">
+      <% currentStudents.forEach(s => { %>
+      <div class="student-card">
+        <div class="student-photo">
+          <% if (s.photo) { %>
+            <img src="/uploads/<%= s.photo %>" alt="<%= s.name %>" />
+          <% } else { %>
+            <div class="student-avatar"><i class="fas fa-user-graduate"></i></div>
+          <% } %>
+        </div>
+        <div class="student-info">
+          <h4><%= s.name %></h4>
+          <span class="class-badge"><%= s.class %> | <%= s.stream %></span>
+          <% if (s.village) { %><p><i class="fas fa-map-marker-alt"></i> <%= s.village %><%= s.district ? ', ' + s.district : '' %></p><% } %>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Alumni -->
+<section class="section bg-light" id="alumni">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Pride</span>
+      <h2 class="section-title">Alumni</h2>
+      <p class="section-subtitle">Meet our accomplished graduates who are making their mark in the world</p>
+    </div>
+    <% if (alumni.length === 0) { %>
+      <div class="empty-state"><i class="fas fa-user-tie"></i><p>Alumni information coming soon.</p></div>
+    <% } else { %>
+    <div class="alumni-grid">
+      <% alumni.forEach(a => { %>
+      <div class="alumni-card">
+        <div class="alumni-photo-wrap">
+          <% if (a.photo) { %>
+            <img src="/uploads/<%= a.photo %>" alt="<%= a.name %>" class="alumni-photo" />
+          <% } else { %>
+            <div class="alumni-avatar"><i class="fas fa-user-tie"></i></div>
+          <% } %>
+          <span class="alumni-batch-pill"><%= a.batch %></span>
+        </div>
+        <div class="alumni-card-body">
+          <h4 class="alumni-name"><%= a.name %></h4>
+          <% if (a.college) { %>
+            <p class="alumni-college"><i class="fas fa-university"></i> <%= a.college %></p>
+          <% } %>
+          <% if (a.branch) { %>
+            <p class="alumni-branch"><i class="fas fa-code-branch"></i> <%= a.branch %></p>
+          <% } %>
+          <% if (a.currentStatus) { %>
+            <div class="alumni-status"><i class="fas fa-briefcase"></i> <%= a.currentStatus %></div>
+          <% } %>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

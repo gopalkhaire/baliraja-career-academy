@@ -1,0 +1,67 @@
+<%- include('layout') %>
+<div class="admin-card form-card">
+  <div class="admin-card-header">
+    <h3><i class="fas fa-<%= student ? 'edit' : 'plus' %>"></i> <%= student ? 'Edit' : 'Add' %> Student</h3>
+    <a href="/admin/students" class="btn-sm-admin"><i class="fas fa-arrow-left"></i> Back</a>
+  </div>
+  <form method="POST" action="<%= action %>" enctype="multipart/form-data" class="admin-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Full Name *</label>
+        <input type="text" name="name" value="<%= student ? student.name : '' %>" placeholder="Student name" required />
+      </div>
+      <div class="form-group">
+        <label>Class *</label>
+        <select name="class" required>
+          <option value="">Select Class</option>
+          <option value="11th" <%= student && student.class==='11th'?'selected':'' %>>11th</option>
+          <option value="12th" <%= student && student.class==='12th'?'selected':'' %>>12th</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Stream *</label>
+        <select name="stream" required>
+          <option value="">Select Stream</option>
+          <option value="Science" <%= student && student.stream==='Science'?'selected':'' %>>Science</option>
+          <option value="Commerce" <%= student && student.stream==='Commerce'?'selected':'' %>>Commerce</option>
+          <option value="Arts" <%= student && student.stream==='Arts'?'selected':'' %>>Arts</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Village</label>
+        <input type="text" name="village" value="<%= student ? student.village : '' %>" placeholder="Village name" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>District</label>
+        <input type="text" name="district" value="<%= student ? student.district : '' %>" placeholder="District name" />
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="text" name="phone" value="<%= student ? student.phone || '' : '' %>" placeholder="Mobile number" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Login Email <small>(for student portal access)</small></label>
+        <input type="email" name="email" value="<%= student ? student.email || '' : '' %>" placeholder="student@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Password <small><%= student ? '(leave blank to keep current)' : '(for student portal)' %></small></label>
+        <input type="password" name="password" placeholder="Min 6 characters" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Photo</label>
+        <input type="file" name="photo" accept="image/*" />
+        <% if (student && student.photo) { %><img src="/uploads/<%= student.photo %>" class="preview-img" /><% } %>
+      </div>
+    </div>
+    <button type="submit" class="btn-admin-primary"><i class="fas fa-save"></i> <%= student ? 'Update' : 'Add' %> Student</button>
+  </form>
+</div>
+<%- include('layout-end') %>

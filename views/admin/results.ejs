@@ -1,0 +1,33 @@
+<%- include('layout') %>
+<% if (success && success.length) { %><div class="alert alert-success"><i class="fas fa-check-circle"></i> <%= success %></div><% } %>
+<% if (error && error.length) { %><div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> <%= error %></div><% } %>
+<div class="admin-card">
+  <div class="admin-card-header">
+    <h3><i class="fas fa-trophy"></i> Results (<%= results.length %>)</h3>
+    <a href="/admin/results/add" class="btn-admin-primary"><i class="fas fa-plus"></i> Add Result</a>
+  </div>
+  <% if (results.length === 0) { %><p class="empty-msg">No results added yet.</p>
+  <% } else { %>
+  <table class="admin-table">
+    <thead><tr><th>Student Name</th><th>Exam</th><th>Percentage</th><th>Rank</th><th>Year</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% results.forEach(r => { %>
+      <tr>
+        <td><strong><%= r.studentName %></strong></td>
+        <td><%= r.exam %></td>
+        <td><span class="percent-badge"><%= r.percentage %>%</span></td>
+        <td><%= r.rank || '—' %></td>
+        <td><%= r.year %></td>
+        <td class="actions">
+          <a href="/admin/results/edit/<%= r._id %>" class="btn-edit"><i class="fas fa-edit"></i></a>
+          <form method="POST" action="/admin/results/delete/<%= r._id %>" style="display:inline" onsubmit="return confirm('Delete?')">
+            <button type="submit" class="btn-delete"><i class="fas fa-trash"></i></button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+<%- include('layout-end') %>

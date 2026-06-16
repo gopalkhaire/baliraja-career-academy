@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+<div class="page-hero"><div class="container"><h1>Notices</h1><p>Stay updated with latest announcements</p></div></div>
+<section class="section">
+  <div class="container">
+    <% if (notices.length === 0) { %>
+      <div class="empty-state"><i class="fas fa-bell-slash"></i><p>No notices at this time.</p></div>
+    <% } else { %>
+    <div class="notices-full-list">
+      <% notices.forEach(n => { %>
+      <div class="notice-full-card">
+        <div class="notice-date-block">
+          <span class="day"><%= new Date(n.date).getDate() %></span>
+          <span class="month"><%= new Date(n.date).toLocaleString('default',{month:'short'}) %></span>
+          <span class="year"><%= new Date(n.date).getFullYear() %></span>
+        </div>
+        <div class="notice-content">
+          <h3><%= n.title %></h3>
+          <p><%= n.description %></p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>

@@ -1,0 +1,113 @@
+<%- include('../partials/header') %>
+<div class="page-hero">
+  <div class="container">
+    <h1>My Profile</h1>
+    <p><%= role === 'student' ? '🎓 Student Portal' : '🏆 Alumni Portal' %></p>
+  </div>
+</div>
+<section class="section">
+  <div class="container">
+    <% if (messages.error && messages.error.length > 0) { %><div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> <%= messages.error[0] %></div><% } %>
+    <% if (messages.success && messages.success.length > 0) { %><div class="alert alert-success"><i class="fas fa-check-circle"></i> <%= messages.success[0] %></div><% } %>
+
+    <div class="profile-layout">
+      <!-- Sidebar -->
+      <div class="profile-sidebar">
+        <div class="profile-card">
+          <div class="profile-photo-wrap">
+            <% if (user.photo) { %>
+              <img src="/uploads/<%= user.photo %>" alt="<%= user.name %>" class="profile-photo" />
+            <% } else { %>
+              <div class="profile-avatar-placeholder">
+                <i class="fas fa-<%= role === 'alumni' ? 'user-tie' : 'user-graduate' %>"></i>
+              </div>
+            <% } %>
+          </div>
+          <span class="role-badge <%= role %>"><%= role === 'student' ? '🎓 Student' : '🏆 Alumni' %></span>
+          <h3 class="profile-name"><%= user.name %></h3>
+          <p class="profile-email"><i class="fas fa-envelope"></i> <%= user.email %></p>
+          <% if (user.phone) { %><p class="profile-email"><i class="fas fa-phone"></i> <%= user.phone %></p><% } %>
+          <div class="profile-status-badge approved"><i class="fas fa-check-circle"></i> Account Approved</div>
+          <% if (role === 'student') { %>
+            <div class="profile-badges">
+              <span class="badge"><%= user.class %></span>
+              <span class="badge"><%= user.stream %></span>
+            </div>
+            <% if (user.village) { %><p class="profile-location"><i class="fas fa-map-marker-alt"></i> <%= user.village %><%= user.district ? ', '+user.district : '' %></p><% } %>
+          <% } else { %>
+            <div class="profile-badges"><span class="badge">Batch: <%= user.batch %></span></div>
+            <% if (user.college) { %><p class="profile-location"><i class="fas fa-university"></i> <%= user.college %></p><% } %>
+            <% if (user.currentStatus) { %><p class="profile-location"><i class="fas fa-briefcase"></i> <%= user.currentStatus %></p><% } %>
+            <% if (user.bio) { %><p class="profile-bio">"<%= user.bio %>"</p><% } %>
+          <% } %>
+          <a href="/logout" class="btn btn-outline btn-full mt-2"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </div>
+
+      <!-- Edit -->
+      <div class="profile-main">
+        <div class="edit-card">
+          <h3><i class="fas fa-edit"></i> Edit Profile</h3>
+          <form action="/profile/update" method="POST" enctype="multipart/form-data" class="auth-form">
+            <div class="form-group">
+              <label><i class="fas fa-camera"></i> Profile Photo</label>
+              <input type="file" name="photo" class="form-control" accept="image/*" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label><i class="fas fa-user"></i> Full Name</label>
+                <input type="text" name="name" class="form-control" value="<%= user.name %>" required />
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-phone"></i> Phone</label>
+                <input type="text" name="phone" class="form-control" value="<%= user.phone||'' %>" />
+              </div>
+            </div>
+            <% if (role === 'student') { %>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Class</label>
+                <select name="class" class="form-control">
+                  <option value="11th" <%=user.class==='11th'?'selected':''%>>11th</option>
+                  <option value="12th" <%=user.class==='12th'?'selected':''%>>12th</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Stream</label>
+                <select name="stream" class="form-control">
+                  <option value="Science" <%=user.stream==='Science'?'selected':''%>>Science</option>
+                  <option value="Commerce" <%=user.stream==='Commerce'?'selected':''%>>Commerce</option>
+                  <option value="Arts" <%=user.stream==='Arts'?'selected':''%>>Arts</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Village</label><input type="text" name="village" class="form-control" value="<%= user.village||'' %>" /></div>
+              <div class="form-group"><label>District</label><input type="text" name="district" class="form-control" value="<%= user.district||'' %>" /></div>
+            </div>
+            <% } else { %>
+            <div class="form-row">
+              <div class="form-group"><label>Batch Year</label><input type="text" name="batch" class="form-control" value="<%= user.batch||'' %>" /></div>
+              <div class="form-group"><label>College</label><input type="text" name="college" class="form-control" value="<%= user.college||'' %>" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Branch/Course</label><input type="text" name="branch" class="form-control" value="<%= user.branch||'' %>" /></div>
+              <div class="form-group"><label>Current Status</label><input type="text" name="currentStatus" class="form-control" value="<%= user.currentStatus||'' %>" /></div>
+            </div>
+            <div class="form-group"><label>Bio</label><textarea name="bio" class="form-control" rows="3"><%= user.bio||'' %></textarea></div>
+            <% } %>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+          </form>
+        </div>
+
+        <!-- Change Password -->
+        <div class="edit-card" style="margin-top:1.5rem;">
+          <h3><i class="fas fa-key"></i> Change Password</h3>
+          <p style="color:#888;font-size:0.9rem;margin-bottom:1rem;">Use the link below to change your password securely via email.</p>
+          <a href="/forgot-password" class="btn btn-outline"><i class="fas fa-envelope"></i> Send Password Reset Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+<div class="page-hero"><div class="container"><h1>Our Faculty</h1><p>Expert educators dedicated to your success</p></div></div>
+<section class="section">
+  <div class="container">
+    <% if (faculty.length === 0) { %>
+      <div class="empty-state"><i class="fas fa-chalkboard-teacher"></i><p>Faculty information coming soon.</p></div>
+    <% } else { %>
+    <div class="faculty-grid">
+      <% faculty.forEach(f => { %>
+      <div class="faculty-card">
+        <div class="faculty-photo">
+          <% if (f.photo) { %>
+            <img src="/uploads/<%= f.photo %>" alt="<%= f.name %>" />
+          <% } else { %>
+            <div class="faculty-avatar"><i class="fas fa-user-tie"></i></div>
+          <% } %>
+        </div>
+        <div class="faculty-info">
+          <h3><%= f.name %></h3>
+          <span class="faculty-subject"><%= f.subject %></span>
+          <p><i class="fas fa-graduation-cap"></i> <%= f.qualification %></p>
+          <p><i class="fas fa-briefcase"></i> <%= f.experience %> experience</p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>

@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+<div class="page-hero"><div class="container"><h1>Results</h1><p>Our students' achievements</p></div></div>
+<section class="section">
+  <div class="container">
+    <% if (results.length === 0) { %>
+      <div class="empty-state"><i class="fas fa-trophy"></i><p>Results will be published soon.</p></div>
+    <% } else { %>
+    <div class="results-table-wrap">
+      <table class="results-table">
+        <thead>
+          <tr><th>#</th><th>Student Name</th><th>Examination</th><th>Percentage</th><th>Rank</th><th>Year</th></tr>
+        </thead>
+        <tbody>
+          <% results.forEach((r, i) => { %>
+          <tr class="<%= i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'' %>">
+            <td><strong><%= i + 1 %></strong></td>
+            <td><strong><%= r.studentName %></strong></td>
+            <td><%= r.exam %></td>
+            <td><span class="percent-badge"><%= r.percentage %>%</span></td>
+            <td><%= r.rank || '—' %></td>
+            <td><%= r.year %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>
